@@ -1,2 +1,2 @@
 export const AVAILABLE_COLORS_URL = 'https://collorassignmentapp-default-rtdb.europe-west1.firebasedatabase.app/';
-export const PARTICIPANTS_URL = '';
+export const PARTICIPANTS_URL = 'https://participants-8e694-default-rtdb.firebaseio.com/';

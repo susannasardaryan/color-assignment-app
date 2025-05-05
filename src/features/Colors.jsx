@@ -16,6 +16,7 @@ const Colors = () => {
     const inputUserName = useRef('');
     const handleSubmit = () => {
         const status = doPost(inputUserName.current.value).then(status => status);
+        inputUserName.current.value = '';
     }
     return (
         <>

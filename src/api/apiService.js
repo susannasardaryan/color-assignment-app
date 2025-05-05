@@ -1,14 +1,15 @@
-import {AVAILABLE_COLORS_URL, PARTICIPANTS_URL} from "./constants.js";
-import { getDatabase , ref, get, child} from "firebase/database";
+import { AVAILABLE_COLORS_URL, PARTICIPANTS_URL } from "./constants.js";
+import { getDatabase, ref, get, set } from "firebase/database";
 import { initializeApp } from "firebase/app";
 
-
-const app = initializeApp({databaseURL: AVAILABLE_COLORS_URL});
+const app = initializeApp({ databaseURL: AVAILABLE_COLORS_URL });
+const db = getDatabase();
 
 export const doGet = async () => {
-    const dbRef = ref(getDatabase());
-    return get(dbRef).then((snapshot) => {
+
+    return get(ref(db, '/availableColors')).then((snapshot) => {
         if (snapshot.exists()) {
+            console.log(snapshot);
             return snapshot.val();
         } else {
             console.log("No data available");
@@ -20,13 +21,10 @@ export const doGet = async () => {
 }
 
 export const doPost = async (name) => {
-    // return fetch(PARTICIPANTS_URL, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'text/plain;charset=utf-8',
-    //     },
-    //     body: JSON.stringify({
-    //         values: [[name, 'red', '#ff0000']]
-    //     })
-    // })
+
+    set(ref(db, '/participants' + '/participant'+Date.now()), {
+        name: name,
+        color: 'red',
+        hex: '#ff0000'
+    });
 }

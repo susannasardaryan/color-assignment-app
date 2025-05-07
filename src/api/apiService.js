@@ -1,30 +1,38 @@
-import { AVAILABLE_COLORS_URL, PARTICIPANTS_URL } from "./constants.js";
-import { getDatabase, ref, get, set } from "firebase/database";
-import { initializeApp } from "firebase/app";
+import {DATA_URL, COLORS_PATH, RESET_COLORS, PARTICIPANTS_PATH} from "./constants.js";
+import {get, getDatabase, ref, set, update} from "firebase/database";
+import {initializeApp} from "firebase/app";
 
-const app = initializeApp({ databaseURL: AVAILABLE_COLORS_URL });
+const app = initializeApp({databaseURL: DATA_URL});
 const db = getDatabase();
 
 export const doGet = async () => {
-
-    return get(ref(db, '/availableColors')).then((snapshot) => {
-        if (snapshot.exists()) {
-            console.log(snapshot);
-            return snapshot.val();
-        } else {
-            console.log("No data available");
-        }
-    }).catch((error) => {
-        console.error(error);
-    });
-
+    return get(ref(db, COLORS_PATH)).then((snapshot) => {
+        console.log(snapshot.val());
+        return snapshot.val()})
+        .catch((error) => {
+            console.error(error);
+        });
 }
 
 export const doPost = async (name) => {
+    const colors = await doGet(COLORS_PATH);
 
-    set(ref(db, '/participants' + '/participant'+Date.now()), {
-        name: name,
-        color: 'red',
-        hex: '#ff0000'
+    const availableColors = Object.entries(colors);
+
+    const randomColor = availableColors[Math.floor(Math.random() * availableColors.length)];
+
+    await set(ref(db, `${PARTICIPANTS_PATH}/participant_${Date.now()}`), {
+        name,
+        color: randomColor[1].color,
+        hex: randomColor[1].hex
     });
+
+    return update(ref(db, '/availableColors'), {
+        [randomColor[0]]: null
+    }).then(() => randomColor);
+}
+
+export const doReset = () => {
+    set(ref(db, '/participants'), null);
+    set(ref(db, '/availableColors'), RESET_COLORS);
 }

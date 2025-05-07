@@ -17,3 +17,4 @@ export const RESET_COLORS = {
 };
 
 export const USER_INFO_KEY = 'user_info';
+export const ADMIN_PASSWORD = 'admin123';

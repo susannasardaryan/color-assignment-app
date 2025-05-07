@@ -1,10 +1,10 @@
 import "./App.css";
-import Colors from "./features/Colors.jsx";
+import ContentContainer from "./features/components/ContentContainer.jsx";
 
 function App() {
     return (
         <>
-            <Colors/>
+            <ContentContainer/>
         </>
     );
 }

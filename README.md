@@ -1,4 +1,5 @@
 Color Assignment App
+
 A React-based application that allows users to view and assign colors, with admin features to reset assignments and view participant results. Built with Redux for state management and Ant Design for UI components.
 [Web App URL](https://colorassignmentapp.netlify.app/)
 

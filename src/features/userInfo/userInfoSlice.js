@@ -15,7 +15,7 @@ const userInfoSlice = createSlice({
             state.userInfo.assignedColor = action.payload.color;
         },
         setAdmin: (state, action) => {
-            state.isAdmin = action.payload
+            state.userInfo.isAdmin = action.payload
         },
     },
     selectors: {

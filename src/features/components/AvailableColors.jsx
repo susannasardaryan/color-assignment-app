@@ -1,15 +1,17 @@
 import {useEffect, useState} from "react";
 import {doGet} from "../../api/apiService.js";
 import {Flex} from "antd";
+import {useSelector} from "react-redux";
 
 const AvailableColors = () => {
     const [availableColors, setAvailableColors] = useState([]);
+    const userInfo = useSelector(state => state.userInfo);
 
     useEffect(() => {
         doGet().then(colors => {
             if (colors) setAvailableColors(Object.values(colors))
         });
-    }, []);
+    }, [userInfo]);
 
     return (
         <Flex justify={'center'} align={'center'} className={'colors'}>

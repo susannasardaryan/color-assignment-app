@@ -4,7 +4,7 @@ import {USER_INFO_KEY} from "../../api/constants.js";
 import {setUserInfo} from "./userInfoSlice.js";
 import {doPost} from "../../api/apiService.js";
 import {useState, useEffect} from "react";
-import {Button, Flex, Input, message} from "antd";
+import {Button, Flex, Input, Modal} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import {checkUserInfo} from "../../utils/checkUserInfo.js";
 
@@ -14,7 +14,6 @@ export const UserInfo = () => {
     const userInfo = useSelector((state) => state.userInfo);
 
     const [username, setUsername] = useState("");
-    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         if (initialUserInfo) {
@@ -30,12 +29,12 @@ export const UserInfo = () => {
             color,
         };
 
-        setTimeout(() => dispatch(setUserInfo(newInfo)), 3000);
+        dispatch(setUserInfo(newInfo));
 
-        messageApi.open({
+        Modal.success({
             content: `Thank You, ${newInfo.username} your color is ${newInfo.color[0]}`,
-            duration: 3,
         });
+        setUsername('');
 
         StorageService.setItem(USER_INFO_KEY, newInfo);
     }
@@ -59,12 +58,11 @@ export const UserInfo = () => {
                         placeholder="Enter your username"
                         prefix={<UserOutlined style={{color: 'rgba(0,0,0,.25)'}}/>}
                     />
-                    <Button type="primary" onClick={handleSubmit}>
+                    <Button onClick={handleSubmit} color="cyan" variant="solid">
                         Submit
                     </Button>
                 </Flex>
             )}
-            {contextHolder}
         </>
     )
 }

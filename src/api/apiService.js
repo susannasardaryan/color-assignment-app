@@ -1,17 +1,14 @@
 import {COLORS_PATH, DATA_URL, PARTICIPANTS_PATH, RESET_COLORS} from "./constants.js";
-import {getDatabase, ref,get, set, update} from "firebase/database";
+import {get, getDatabase, ref, set, update} from "firebase/database";
 import {initializeApp} from "firebase/app";
 
 const app = initializeApp({databaseURL: DATA_URL});
 const db = getDatabase();
 
 export const doGet = (path = COLORS_PATH) => {
-    return get(ref(db, path)).then((snapshot) => {
-        return snapshot.val()
-    })
-        .catch((error) => {
-            console.error(error);
-        });
+    return get(ref(db, path))
+        .then((snapshot) => snapshot.val())
+        .catch((error) => error.message);
 }
 
 export const doPost = async (name) => {
@@ -24,17 +21,16 @@ export const doPost = async (name) => {
         [randomColor[0]]: null
     });
 
-    await set(ref(db, `${PARTICIPANTS_PATH}/participant_${id}`), {
+    return await set(ref(db, `${PARTICIPANTS_PATH}/participant_${id}`), {
         id,
         name,
         color: randomColor[1].color,
         hex: randomColor[1].hex
-    });
-
-    return randomColor;
+    }).then(() => randomColor)
+        .catch((error) => error.message);
 }
 
-export const doReset = () => {
-    set(ref(db, '/participants'), null);
+export const doReset = async () => {
     set(ref(db, '/availableColors'), RESET_COLORS);
+    return await set(ref(db, '/participants'), null);
 }

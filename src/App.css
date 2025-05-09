@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+body{
+    background-color: #fff8f8;
+}
 main{
     display: flex;
     flex-direction: column;
@@ -22,14 +26,7 @@ main{
 }
 
 .result{
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    margin: 0.5rem 0;
-    align-items: center;
-    justify-content: center;
-    font-size: large;
-
+    margin: 1rem 0;
 }
 .result-color{
     display: inline-block;

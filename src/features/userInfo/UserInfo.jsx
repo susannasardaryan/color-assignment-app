@@ -6,11 +6,11 @@ import {doPost} from "../../api/apiService.js";
 import {useState, useEffect} from "react";
 import {Button, Flex, Input, Modal} from "antd";
 import {UserOutlined} from "@ant-design/icons";
-import {checkUserInfo} from "../../utils/checkUserInfo.js";
+import {useCheckUserInfo} from "../../hooks/useCheckUserInfo.js";
 
 export const UserInfo = () => {
     const dispatch = useDispatch();
-    const initialUserInfo = checkUserInfo();
+    const initialUserInfo = useCheckUserInfo();
     const userInfo = useSelector((state) => state.userInfo);
 
     const [username, setUsername] = useState("");

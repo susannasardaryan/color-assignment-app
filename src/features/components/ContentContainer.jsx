@@ -13,7 +13,9 @@ const ContentContainer = () => {
     const dispatch = useDispatch();
     const isAdmin = useSelector(state => state.userInfo.isAdmin);
     const userInfo = useSelector(state => state.userInfo);
+
     const [results, setResults] = useState([]);
+
     const [messageApi, contextHolder] = message.useMessage();
 
     const handleReset = () => {

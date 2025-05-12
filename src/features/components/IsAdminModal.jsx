@@ -47,7 +47,10 @@ const IsAdminModal = () => {
             {!showPasswordForm ? (
                 <p>Are you an admin?</p>
             ) : (
-                <form>
+                <form  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSubmit();
+                }}>
                     <label>
                         <span>Admin Password:</span>
                         <Input.Password

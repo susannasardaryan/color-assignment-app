@@ -34,6 +34,7 @@ export const UserInfo = () => {
         Modal.success({
             content: `Thank You, ${newInfo.username} your color is ${newInfo.color[0]}`,
         });
+
         setUsername('');
 
         StorageService.setItem(USER_INFO_KEY, newInfo);

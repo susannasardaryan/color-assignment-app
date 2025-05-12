@@ -5,7 +5,7 @@ import {doGet} from "../api/apiService.js";
 export const checkUserInfo = () => {
     let userInfo = StorageService.getItem(USER_INFO_KEY);
     doGet(PARTICIPANTS_PATH).then(participants => {
-        if (!participants) {
+        if (participants == null) {
             userInfo = null;
             StorageService.removeItem(USER_INFO_KEY);
         }
